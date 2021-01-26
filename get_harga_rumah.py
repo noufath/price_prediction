@@ -17,7 +17,7 @@ for baris in data_harga_rumah[1:]:
     for i in range(len(baris_harga_rumah)):
         dict_harga_rumah[key_harga_rumah[i]] = baris_harga_rumah[i]
     harga_rumah.append(dict_harga_rumah)
-print(harga_rumah)
+#print(harga_rumah)
 
 # Step 2:
 # Buat fungsi get_all_specified_attribute yang menerima parameter list_of_dictionary
@@ -29,6 +29,8 @@ def get_all_specified_attribute(list_of_dictionary, speficied_key):
         attribute = data[speficied_key]
         list_attributes.append(attribute)
     return list_attributes
+
+print(get_all_specified_attribute(harga_rumah, 'bangunan'))
 
 # Step 3:
 # Buat fungsi min_value yang menerima parameter list_attributes 
@@ -111,10 +113,11 @@ def price_based_on_similatarity(data, list_of_data):
 # step 8
 # Hitung harga rumah yang telah di transformasikan ke dalam variable
 # harga_rumah berikut dengan atribut attr_info
-harga_rumah, attr_info = data_transformation(harga_rumah, ['tanah','bangunan','jarak_ke_pusat'])
+# harga_rumah, attr_info = data_transformation(harga_rumah, ['tanah','bangunan','jarak_ke_pusat'])
+
 
 # Gunakan variable data untuk memprediksi harga rumah
-data = {'tanah': 110, 'bangunan': 80, 'jarak_ke_pusat': 35}
+#data = {'tanah': 110, 'bangunan': 80, 'jarak_ke_pusat': 35}
 # Transformasikan data tersebut dengan menggunakan attr_info yang telah diperoleh
 # yang kembali disimpan ke variable data
 
