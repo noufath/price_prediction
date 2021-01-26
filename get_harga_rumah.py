@@ -5,8 +5,6 @@ file_harga_rumah = open("harga_rumah.txt", "r")
 data_harga_rumah = file_harga_rumah.readlines()
 file_harga_rumah.close()
 
-#print(data_harga_rumah)
-#print(data_harga_rumah[0].replace("\n", "").split(","))
 
 # Buat list of dict dengan nama harga rumah
 key_harga_rumah = data_harga_rumah[0].replace("\n", "").split(",")
@@ -17,7 +15,7 @@ for baris in data_harga_rumah[1:]:
     for i in range(len(baris_harga_rumah)):
         dict_harga_rumah[key_harga_rumah[i]] = baris_harga_rumah[i]
     harga_rumah.append(dict_harga_rumah)
-#print(harga_rumah)
+print(harga_rumah)
 
 # Step 2:
 # Buat fungsi get_all_specified_attribute yang menerima parameter list_of_dictionary
@@ -30,7 +28,7 @@ def get_all_specified_attribute(list_of_dictionary, speficied_key):
         list_attributes.append(attribute)
     return list_attributes
 
-print(get_all_specified_attribute(harga_rumah, 'bangunan'))
+# print(get_all_specified_attribute(harga_rumah, 'bangunan'))
 
 # Step 3:
 # Buat fungsi min_value yang menerima parameter list_attributes 
@@ -77,7 +75,7 @@ def data_transformation(list_of_dictionary, list_attribute_names):
         while(data_idx < len(list_of_dictionary)):
             list_of_dictionary[data_idx][attr_name] = transform_attribute(int(list_of_dictionary[data_idx][attr_name]), max_attr, min_attr)
             data_idx += 1
-        return list_of_dictionary, attr_info
+    return list_of_dictionary, attr_info
 
 # Step 6
 # Berdasarkan data baru dan attr_info ini, buat fungsi transform_data yang
@@ -85,9 +83,10 @@ def data_transformation(list_of_dictionary, list_attribute_names):
 # dari data baru yang telah di transformasikan.
 
 def transform_data(data, attr_info):
-    for key_name in data.keys():
-        data[key_name] = (data[key_name] - attr_info[key_name]['min']) / (attr_info[key_name]['max'] - attr_info[key_name]['min'])
-    return data
+	for key_name in data.keys():
+		data[key_name] = (data[key_name] - attr_info[key_name]['min']) / (
+		                  attr_info[key_name]['max'] - attr_info[key_name]['min'])
+	return data
 
 # step 7
 # buat fungsi yang digunakan untuk sistem prediksi harga berdasarkan nilai kemiripan atribut
@@ -98,7 +97,7 @@ def abs_value(value):
     else:
         return value
 
-def price_based_on_similatarity(data, list_of_data):
+def price_based_on_similarity(data, list_of_data):
     prediksi_harga = 0
     perbedaan_terkecil = 999
     for data_point in list_of_data:
@@ -113,18 +112,19 @@ def price_based_on_similatarity(data, list_of_data):
 # step 8
 # Hitung harga rumah yang telah di transformasikan ke dalam variable
 # harga_rumah berikut dengan atribut attr_info
-# harga_rumah, attr_info = data_transformation(harga_rumah, ['tanah','bangunan','jarak_ke_pusat'])
-
+harga_rumah, attr_info = data_transformation(harga_rumah,
+                                             ['tanah','bangunan','jarak_ke_pusat'])
 
 # Gunakan variable data untuk memprediksi harga rumah
-#data = {'tanah': 110, 'bangunan': 80, 'jarak_ke_pusat': 35}
+data = {'tanah': 120, 'bangunan': 90, 'jarak_ke_pusat': 5}
 # Transformasikan data tersebut dengan menggunakan attr_info yang telah diperoleh
 # yang kembali disimpan ke variable data
 
-#data = transform_data(data, attr_info)
+data = transform_data(data, attr_info)
+
 # Hitunglah prediksi harga dar variable data tersebut
-#harga = price_based_on_similatarity(data, harga_rumah)
-#print("Prediksi harga rumah: ", harga)
+harga = price_based_on_similarity(data, harga_rumah)
+print("Prediksi harga rumah: ", harga)
 
 
 
